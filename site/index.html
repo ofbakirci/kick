@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kick — "Disk kullanımda" diyen macOS'a kim tutuyor diye sor, sonra güvenle çıkar</title>
+<meta name="description" content="macOS harici diski çıkarmıyor, 'bir program kullanıyor' diyor ama hangisi demiyor. Kick söyler: hangi uygulama, hangi dosya. Sonra nazikçe kapattırır ve diski güvenle çıkarır. Ücretsiz, açık kaynak, Apple notarize.">
+<link rel="icon" href="icon.png" type="image/png">
+<link rel="alternate" hreflang="en" href="https://kick.nousworks.co/en/">
+<link rel="alternate" hreflang="tr" href="https://kick.nousworks.co/">
+<meta property="og:title" content="Kick — diski kim tutuyor, gör; güvenle çıkar">
+<meta property="og:description" content="macOS'un 'disk kullanımda' uyarısının sebebini gösterir, nazikçe çözer, diski çıkarır. Ücretsiz, açık kaynak.">
+<meta property="og:image" content="https://kick.nousworks.co/icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <img class="logo" src="icon.png" width="128" height="128" alt="Kick simgesi: turuncu zemin üzerinde harici disk">
+    <h1>Kick</h1>
+    <div class="tagline">Diski kim tutuyor, gör. Sonra güvenle çıkar.</div>
+    <p class="pitch">"Disk çıkarılamadı, bir veya daha fazla program kullanıyor olabilir."
+    macOS böyle der ve susar. Kick sormaya devam eder: hangi uygulama, hangi dosya, hangi
+    klasör. Sonra tek tuşla o uygulamalardan nazikçe çıkmalarını ister, diski tekrar
+    kontrol eder ve çıkarır. Zorla sökme yok, ani öldürme yok. Ücretsiz ve açık kaynak.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/ofbakirci/kick/releases/download/v1.0.0/Kick-1.0.0-macOS.zip">İndir — Kick 1.0.0</a>
+      <a class="btn ghost" href="#kurulum">Kurulum</a>
+      <a class="btn ghost" href="#nasil">Nasıl çalışır?</a>
+      <a class="btn ghost" href="https://github.com/ofbakirci/kick">GitHub</a>
+    </div>
+    <p class="meta">macOS 14+ · Apple Silicon ve Intel · Developer ID imzalı + notarize · MIT lisansı · <a href="en/">English</a></p>
+  </section>
+
+  <div class="shot" aria-label="Kick penceresi örneği">
+    <div class="win">
+      <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">Kick</span></div>
+      <div class="win-body">
+        <div class="win-head"><span class="app-ico"><i></i></span><div><b>Kick</b><small>External disks, explained.</small></div></div>
+        <div class="disk"><span class="disk-ico"></span><div><b>345-BACKUP</b><small>2 TB · ExFAT</small></div><span class="check">✓</span></div>
+        <div class="panel">
+          <div class="panel-head"><span class="warn">!</span><div><b>2 apps or services are using this disk</b><small>Review what Kick can quit before you continue.</small></div></div>
+          <div class="proc">
+            <span class="proc-ico prev">P</span>
+            <div class="proc-text"><b>Preview</b><small>It has one item open on this disk.</small><small class="ok">→ Kick will ask this app to quit.</small></div>
+          </div>
+          <div class="proc">
+            <span class="proc-ico term">&gt;_</span>
+            <div class="proc-text"><b>zsh</b><small class="dim">Started from Terminal</small><small>Its current folder is on this disk.</small><small class="act">! Change the terminal folder or close its window.</small><span class="links"><span>Show Terminal</span><span class="stop">Stop…</span></span></div>
+          </div>
+        </div>
+        <div class="kick-btn"><small>Safely</small><b>Kick</b></div>
+        <div class="check-again">Check Again</div>
+      </div>
+    </div>
+    <p class="shot-caption">Engelleyen iki süreç: Preview'dan nazikçe çıkması istenir, Terminal'e "klasörü değiştir" denir. Stop en son çare.</p>
+  </div>
+
+  <section class="cards">
+    <div class="card">
+      <h2>Sebebi söyler</h2>
+      <p>"Bir program kullanıyor" yerine <b>hangi program, hangi dosya, hangi klasör</b>.
+      Uygulama adı ve simgesi, onu açan uygulama ("Terminal'den başlatıldı"), PID ve açık yollar.
+      Aynı diskteki APFS + exFAT bölümler tek disk olarak görünür.</p>
+    </div>
+    <div class="card">
+      <h2>Nazikçe çözer</h2>
+      <p><b>Safely Kick</b> yalnız normal Mac uygulamalarından, yalnız okuma yapıyorlarsa
+      çıkmalarını ister — menüdeki Quit gibi. Kaydedilmemiş işin varsa uygulama sorar. Sonra diski
+      yeniden kontrol eder, temizse çıkarır.</p>
+    </div>
+    <div class="card">
+      <h2>Zorla değil, açıkça</h2>
+      <p>Yazma yapan, yedekleyen, sync eden, sanal makine çalıştıran, terminal olan veya macOS'a
+      ait süreçlere kendiliğinden dokunmaz; <b>ne yapman gerektiğini söyler</b>. İnatçı olana
+      <b>Stop</b>: sen seçersin, sen onaylarsın, tek bir nazik durdurma isteği gider.</p>
+    </div>
+    <div class="card">
+      <h2>Ücretsiz, açık, dürüst</h2>
+      <p>MIT lisansı. Reklam yok, hesap yok, "Pro" yok. Developer ID imzalı, Apple notarize.
+      Ne yaptığı <a href="#nasil">aşağıda</a> ve <a href="https://github.com/ofbakirci/kick">kaynak kodda</a>.</p>
+    </div>
+  </section>
+
+  <section class="how" id="nasil">
+    <h2>Nasıl çalışır?</h2>
+    <p>Kick önce macOS'un <b>kendi normal eject</b> komutunu verir (Finder'daki ⏏ ile aynı).
+    Disk temizse iş biter. macOS "meşgul" hatası döndürürse Kick <code>lsof</code> ile o
+    diskte açık dosyası ya da çalışma klasörü olan her süreci bulur; her birini uygulama adı,
+    başlatan uygulama, PID ve başlangıç zamanıyla eşler.</p>
+    <p><b>Safely Kick</b> yalnız uygun uygulamalara normal quit isteği gönderir, en fazla birkaç
+    saniye bekler, diski yeniden tarar ve ancak hiçbir şey kalmadıysa eject'i tekrar dener. Her
+    eject'ten önce diskin fiziksel kimliğini (IOKit kaydı, medya ve volume UUID'leri, bağlama
+    yolları) yeniden doğrular; aynı yola takılmış başka bir disk asla yanlışlıkla çıkarılmaz.</p>
+    <p><b>Stop</b> ayrı bir butondur ve son aşamadır. Sen bir süreci seçersin, Kick ne olacağını
+    ve varsa riskini yazar, sen onaylarsın. Kick taze bir tarama alır, aynı sürecin hâlâ diski
+    tuttuğunu doğrular ve tek bir istek gönderir: uygulamaysa normal quit, komut satırı aracıysa
+    tek bir <code>SIGTERM</code>. Süreç aldırmazsa disk takılı kalır, Kick neyin açık kaldığını
+    gösterir.</p>
+    <p class="fine">Ayrıntı: <a href="https://github.com/ofbakirci/kick#how-it-works">README — How it works</a></p>
+  </section>
+
+  <section class="rules">
+    <h2>Açık konuşalım</h2>
+    <ul>
+      <li><b>Asla zorla sökmez, asla <code>SIGKILL</code> göndermez.</b> Yaptığı her şey, hedefin
+        reddedebileceği bir istektir. Diskini ve dosya sistemini riske atmaz.</li>
+      <li><b>Safely Kick seçicidir.</b> Yalnız senin kullanıcınla çalışan, yalnız okuma yapan
+        normal Mac uygulamalarına quit ister. Yazan, yedekleyen, sync eden, sanal makine, terminal,
+        kabuk ve macOS süreçleri için sana adım söyler.</li>
+      <li><b>Stop senin kararındır.</b> Her seferinde tek süreç, onay ekranı, risk notu. Yazma
+        yapan bir araca durdurma isteği gönderirsen o dosya yarım kalabilir; Kick bunu önceden
+        söyler.</li>
+      <li class="w"><b>Kaydet, sonra bas.</b> Normal bir uygulama quit isteği alınca kendi "kaydet"
+        penceresini gösterebilir. O pencereye cevap vermeden disk çıkmaz.</li>
+    </ul>
+  </section>
+
+  <section class="changelog" id="degisiklikler">
+    <h2>Sürüm notları</h2>
+    <div class="release-list">
+      <article class="release current">
+        <div class="release-head">
+          <h3><a href="https://github.com/ofbakirci/kick/releases/download/v1.0.0/Kick-1.0.0-macOS.zip">v1.0.0</a><span class="badge">güncel</span></h3>
+          <time datetime="2026-08-19">19 Ağustos 2026</time>
+        </div>
+        <ul>
+          <li>İlk yayın: harici diskleri listeler, normal eject dener, engelleyen süreçleri adı, simgesi, başlatan uygulaması, PID'si ve açık yollarıyla gösterir.</li>
+          <li>Safely Kick: uygun uygulamalara nazik quit isteği, yeniden tarama, güvenli eject. Kimlik doğrulamalı (disk ve süreç).</li>
+          <li>Show: engelleyen uygulamayı (örneğin Terminal'i) öne getirir. Stop: son çare, onaylı, tek istek, asla SIGKILL.</li>
+          <li>Universal binary (Apple Silicon + Intel), macOS 14+. Developer ID imzalı, Apple notarize.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="install" id="kurulum">
+    <h2>Kurulum</h2>
+    <ol class="steps">
+      <li><a href="https://github.com/ofbakirci/kick/releases/download/v1.0.0/Kick-1.0.0-macOS.zip">Kick-1.0.0-macOS.zip</a> dosyasını indir (yedek: <a href="dl/Kick-1.0.0-macOS.zip">site kopyası</a>), aç, <b>Kick.app</b>'i Uygulamalar klasörüne taşı.</li>
+      <li>Aç. Uygulama Apple tarafından notarize edildi; uyarısız açılır.</li>
+      <li>Diskini seç, <b>Eject</b>'e bas. macOS reddederse Kick sebebini ve sonraki adımı gösterir.</li>
+    </ol>
+    <p><b style="color:#fff">Kaynaktan derleme:</b></p>
+<pre><code>git clone https://github.com/ofbakirci/kick
+cd kick
+swift test --disable-sandbox
+./script/build_and_run.sh        <span class="c"># dist/Kick.app</span></code></pre>
+    <p class="note">SHA-256 özetleri: <a href="dl/SHA256SUMS">SHA256SUMS</a></p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <a href="https://nousworks.co">nousworks</a> yapımı ·
+    <a href="https://github.com/ofbakirci/kick">ofbakirci/kick</a> ·
+    kardeşi: <a href="https://finedisplay.nousworks.co">FineDisplay</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+# kick.nousworks.co — Kick tanıtım + indirme sayfası (/srv/static/kick).
+# Kaynak: apps_ofb/kick/site — deploy: script/deploy_site.sh
+# DNS A kaydı kick → 78.142.211.44 (2026-08-19 eklendi).
+
+kick.nousworks.co {
+	root * /srv/static/kick
+	encode gzip
+
+	@tazele path / /index.html /en/ /en/index.html /style.css /dl/SHA256SUMS
+	header @tazele Cache-Control "no-cache"
+	header /icon.png Cache-Control "public, max-age=86400"
+	header /dl/*.zip Cache-Control "public, max-age=3600"
+	header /dl/*.zip Content-Disposition "attachment"
+
+	file_server
+}

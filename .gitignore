@@ -1,0 +1,9 @@
+.DS_Store
+.build/
+.swiftpm/
+*.xcodeproj
+*.xcuserstate
+dist/
+site/dl/
+.codex/
+.claude/

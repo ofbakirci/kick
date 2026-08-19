@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-package:
+    runs-on: macos-15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: swift test --disable-sandbox
+
+      - name: Check shell scripts
+        run: |
+          for script_file in script/*.sh; do
+            bash -n "$script_file"
+          done
+
+      - name: Build a local release
+        run: ./script/package_release.sh
+
+      - name: Upload the local release
+        uses: actions/upload-artifact@v4
+        with:
+          name: Kick-macOS
+          path: dist/release/Kick-*-macOS.zip
+          if-no-files-found: error

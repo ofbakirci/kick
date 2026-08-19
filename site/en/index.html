@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kick — See what holds your external disk, then eject it safely</title>
+<meta name="description" content="macOS says the disk is in use but does not say which program. Kick shows the app, the file, the folder. Then it asks the app to quit and ejects the disk safely. Free, open source, notarized by Apple.">
+<link rel="icon" href="../icon.png" type="image/png">
+<link rel="alternate" hreflang="tr" href="https://kick.nousworks.co/">
+<link rel="alternate" hreflang="en" href="https://kick.nousworks.co/en/">
+<meta property="og:title" content="Kick — see what holds your disk, eject it safely">
+<meta property="og:description" content="Explains the macOS 'disk in use' error, releases it politely, ejects the disk. Free, open source.">
+<meta property="og:image" content="https://kick.nousworks.co/icon.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <img class="logo" src="../icon.png" width="128" height="128" alt="Kick icon: external disk on an orange tile">
+    <h1>Kick</h1>
+    <div class="tagline">See what holds your disk. Then eject it safely.</div>
+    <p class="pitch">"The disk wasn't ejected because one or more programs may be using it."
+    macOS says this and stops. Kick keeps asking: which app, which file, which folder.
+    Then one button asks those apps to quit, checks the disk again, and ejects it.
+    No force unmount, no instant kill. Free and open source.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/ofbakirci/kick/releases/download/v1.0.0/Kick-1.0.0-macOS.zip">Download — Kick 1.0.0</a>
+      <a class="btn ghost" href="#install">Install</a>
+      <a class="btn ghost" href="#how">How it works</a>
+      <a class="btn ghost" href="https://github.com/ofbakirci/kick">GitHub</a>
+    </div>
+    <p class="meta">macOS 14+ · Apple Silicon and Intel · Developer ID signed + notarized · MIT license · <a href="../">Türkçe</a></p>
+  </section>
+
+  <div class="shot" aria-label="Example of the Kick window">
+    <div class="win">
+      <div class="win-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="win-title">Kick</span></div>
+      <div class="win-body">
+        <div class="win-head"><span class="app-ico"><i></i></span><div><b>Kick</b><small>External disks, explained.</small></div></div>
+        <div class="disk"><span class="disk-ico"></span><div><b>345-BACKUP</b><small>2 TB · ExFAT</small></div><span class="check">✓</span></div>
+        <div class="panel">
+          <div class="panel-head"><span class="warn">!</span><div><b>2 apps or services are using this disk</b><small>Review what Kick can quit before you continue.</small></div></div>
+          <div class="proc">
+            <span class="proc-ico prev">P</span>
+            <div class="proc-text"><b>Preview</b><small>It has one item open on this disk.</small><small class="ok">→ Kick will ask this app to quit.</small></div>
+          </div>
+          <div class="proc">
+            <span class="proc-ico term">&gt;_</span>
+            <div class="proc-text"><b>zsh</b><small class="dim">Started from Terminal</small><small>Its current folder is on this disk.</small><small class="act">! Change the terminal folder or close its window.</small><span class="links"><span>Show Terminal</span><span class="stop">Stop…</span></span></div>
+          </div>
+        </div>
+        <div class="kick-btn"><small>Safely</small><b>Kick</b></div>
+        <div class="check-again">Check Again</div>
+      </div>
+    </div>
+    <p class="shot-caption">Two blockers: Kick asks Preview to quit and tells you to change the Terminal folder. Stop is the last resort.</p>
+  </div>
+
+  <section class="cards">
+    <div class="card">
+      <h2>It names the cause</h2>
+      <p>Not "a program", but <b>which program, which file, which folder</b>. App name and icon,
+      the app that started it ("Started from Terminal"), PID, and the open paths. APFS and exFAT
+      volumes on the same drive show as one disk.</p>
+    </div>
+    <div class="card">
+      <h2>It asks politely</h2>
+      <p><b>Safely Kick</b> asks normal Mac apps to quit, and only when they read from the disk.
+      It is the same as Quit in the app menu. The app can still show its save dialog. Then Kick
+      checks the disk again and ejects it when it is clear.</p>
+    </div>
+    <div class="card">
+      <h2>Clear, not forceful</h2>
+      <p>Writers, backups, sync tools, virtual machines, terminals, and macOS processes are never
+      touched on their own. Kick <b>tells you the step to take</b>. For a stubborn one there is
+      <b>Stop</b>: you choose, you confirm, Kick sends one polite stop request.</p>
+    </div>
+    <div class="card">
+      <h2>Free, open, honest</h2>
+      <p>MIT license. No ads, no account, no "Pro". Developer ID signed and notarized by Apple.
+      What it does is <a href="#how">below</a> and in the <a href="https://github.com/ofbakirci/kick">source code</a>.</p>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <h2>How it works</h2>
+    <p>Kick first sends the <b>normal macOS eject</b> command, the same as the ⏏ button in Finder.
+    A clean disk ejects right away. When macOS returns a "busy" error, Kick runs <code>lsof</code>
+    and finds every process with an open file or current folder on that disk. It matches each one
+    with its app name, the app that started it, its PID, and its start time.</p>
+    <p><b>Safely Kick</b> sends a normal quit request only to eligible apps, waits a few seconds,
+    scans the disk again, and retries the eject only when nothing remains. Before each eject it
+    checks the physical identity of the disk again (IOKit registry entry, media and volume UUIDs,
+    mount paths). A different disk at the same path is never ejected by mistake.</p>
+    <p><b>Stop</b> is a separate button and the last stage. You pick one process, Kick shows what
+    will happen and any risk, and you confirm. Kick takes a fresh snapshot, confirms that the same
+    process still holds the disk, and sends one request: a normal quit for an app, or one
+    <code>SIGTERM</code> for a command-line tool. If the process ignores it, the disk stays mounted
+    and Kick shows what is still open.</p>
+    <p class="fine">Details: <a href="https://github.com/ofbakirci/kick#how-it-works">README — How it works</a></p>
+  </section>
+
+  <section class="rules">
+    <h2>Plain rules</h2>
+    <ul>
+      <li><b>Never a force unmount, never <code>SIGKILL</code>.</b> Every action is a request the
+        target can refuse. Your disk and file system are not at risk.</li>
+      <li><b>Safely Kick is selective.</b> It asks only normal Mac apps that run as your user and
+        only read from the disk. For writers, backups, sync tools, virtual machines, terminals,
+        shells, and macOS processes it gives you the step instead.</li>
+      <li><b>Stop is your decision.</b> One process at a time, a review sheet, a risk note. A stop
+        request to a tool that writes can leave that file incomplete. Kick says so first.</li>
+      <li class="w"><b>Save first, then press.</b> A normal app can show its own Save dialog when it
+        gets a quit request. The disk does not eject until you answer it.</li>
+    </ul>
+  </section>
+
+  <section class="changelog" id="changelog">
+    <h2>Release notes</h2>
+    <div class="release-list">
+      <article class="release current">
+        <div class="release-head">
+          <h3><a href="https://github.com/ofbakirci/kick/releases/download/v1.0.0/Kick-1.0.0-macOS.zip">v1.0.0</a><span class="badge">current</span></h3>
+          <time datetime="2026-08-19">19 August 2026</time>
+        </div>
+        <ul>
+          <li>First release: lists external disks, tries the normal eject, shows each blocking process with its name, icon, owning app, PID, and open paths.</li>
+          <li>Safely Kick: polite quit requests to eligible apps, recheck, safe eject. Disk and process identity checks.</li>
+          <li>Show: brings the owning app (for example Terminal) to the front. Stop: last resort, confirmed, one request, never SIGKILL.</li>
+          <li>Universal binary (Apple Silicon + Intel), macOS 14+. Developer ID signed, notarized by Apple.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="install" id="install">
+    <h2>Install</h2>
+    <ol class="steps">
+      <li>Download <a href="https://github.com/ofbakirci/kick/releases/download/v1.0.0/Kick-1.0.0-macOS.zip">Kick-1.0.0-macOS.zip</a> (mirror: <a href="../dl/Kick-1.0.0-macOS.zip">site copy</a>), unzip, move <b>Kick.app</b> to Applications.</li>
+      <li>Open it. The app is notarized by Apple and opens without warnings.</li>
+      <li>Pick your disk, press <b>Eject</b>. If macOS refuses, Kick shows the reason and the next step.</li>
+    </ol>
+    <p><b style="color:#fff">Build from source:</b></p>
+<pre><code>git clone https://github.com/ofbakirci/kick
+cd kick
+swift test --disable-sandbox
+./script/build_and_run.sh        <span class="c"># dist/Kick.app</span></code></pre>
+    <p class="note">SHA-256 checksums: <a href="../dl/SHA256SUMS">SHA256SUMS</a></p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    Made by <a href="https://nousworks.co">nousworks</a> ·
+    <a href="https://github.com/ofbakirci/kick">ofbakirci/kick</a> ·
+    sibling: <a href="https://finedisplay.nousworks.co">FineDisplay</a>
+  </div>
+</footer>
+
+</body>
+</html>
