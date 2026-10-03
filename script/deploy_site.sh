@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Pushes site/ to the nus server (/srv/static/kick). Never uses --delete.
+# Pushes site/ to the nousworks server (/srv/static/kick). Never uses --delete.
 # Usage: script/deploy_site.sh            # rsync site files
 #        script/deploy_site.sh --caddy    # also install deploy/kick.caddy (only if absent), validate, reload
 set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
-HOST="${DEPLOY_HOST:-nus}"
+HOST="${DEPLOY_HOST:-nousworks}"
 DEST="/srv/static/kick"
 
 ls site/dl/Kick-*-macOS.zip >/dev/null 2>&1 || { echo "site/dl is empty: run script/package_release.sh && script/build_site.sh first" >&2; exit 1; }
