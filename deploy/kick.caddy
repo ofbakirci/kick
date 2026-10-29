@@ -3,6 +3,8 @@
 # DNS A kaydı kick → 78.142.211.44 (2026-08-19 eklendi).
 
 kick.nousworks.co {
+	# /flag.txt: AI ajanlarına dur-ve-rapor-et notu (ortak snippet siteler/_bayrak.caddy, 2026-10-29)
+	import bayrak
 	root * /srv/static/kick
 	encode gzip
 
