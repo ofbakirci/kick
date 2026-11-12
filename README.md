@@ -1,5 +1,11 @@
 # Kick
 
+## 简体中文
+
+Kick 支持简体中文和英文，默认跟随 macOS 的语言设置。你也可以在「系统设置 → 通用 → 语言与地区 → 应用程序」为 Kick 单独选择语言，重新打开后生效。
+
+选中外接磁盘并点击「弹出」。如果磁盘被占用，Kick 会列出相关应用或进程，并提示下一步操作。点击「安全弹出」可查看并确认退出请求，待占用解除后自动重试。
+
 **macOS says "the disk is in use." Kick shows you which app, then kicks the disk out safely. Free, open source, one window.**
 
 Kick lists your external disks. It tries the normal macOS eject first. When macOS refuses because a program holds the disk, Kick shows that program, its open paths, and what to do. One button — *Safely Kick* — asks the eligible apps to quit, checks the disk again, and ejects it. A separate last-resort *Stop* button handles the stubborn ones, one polite request at a time.

@@ -22,13 +22,13 @@ struct StatusPanel: View {
                 }
             case .ejecting:
                 BusyStatusView(
-                    title: "Checking \(quotedDiskName)…",
-                    message: "Trying a normal eject first."
+                    title: String(localized: "Checking \(quotedDiskName)…"),
+                    message: String(localized: "Trying a normal eject first.")
                 )
             case .diagnosing:
                 BusyStatusView(
-                    title: "Finding what is in the way…",
-                    message: "Checking which apps and services have files open."
+                    title: String(localized: "Finding what is in the way…"),
+                    message: String(localized: "Checking which apps and services have files open.")
                 )
             case .blocked:
                 BlockedStatusView(
@@ -41,18 +41,18 @@ struct StatusPanel: View {
                 )
             case .releasing:
                 BusyStatusView(
-                    title: "Releasing \(quotedDiskName)…",
-                    message: "Asking eligible apps to quit."
+                    title: String(localized: "Releasing \(quotedDiskName)…"),
+                    message: String(localized: "Asking eligible apps to quit.")
                 )
             case .stopping(let name):
                 BusyStatusView(
-                    title: "Stopping “\(name)”…",
-                    message: "Waiting for it to release the disk."
+                    title: String(localized: "Stopping “\(name)”…"),
+                    message: String(localized: "Waiting for it to release the disk.")
                 )
             case .retrying:
                 BusyStatusView(
-                    title: "Ejecting \(quotedDiskName)…",
-                    message: "The blockers are gone."
+                    title: String(localized: "Ejecting \(quotedDiskName)…"),
+                    message: String(localized: "The blockers are gone.")
                 )
             case .ejected(let name):
                 SuccessStatusView(name: name)
@@ -64,7 +64,7 @@ struct StatusPanel: View {
     }
 
     private var quotedDiskName: String {
-        disk.map { "“\($0.displayName)”" } ?? "disk"
+        disk.map { "“\($0.displayName)”" } ?? String(localized: "disk")
     }
 }
 
@@ -78,9 +78,9 @@ private struct ReadyView: View {
                 .foregroundStyle(Color.kickAccent)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 3) {
-                Text("Ready to eject")
+                Text(String(localized: "Ready to eject"))
                     .font(.headline)
-                Text("Kick will try the normal macOS eject first.")
+                Text(String(localized: "Kick will try the normal macOS eject first."))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -98,9 +98,9 @@ private struct EmptyDisksView: View {
                 .font(.system(size: 36, weight: .light))
                 .foregroundStyle(.secondary)
                 .accessibilityHidden(true)
-            Text("No external disks")
+            Text(String(localized: "No external disks"))
                 .font(.headline)
-            Text("Connect a disk to get started.")
+            Text(String(localized: "Connect a disk to get started."))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
@@ -118,7 +118,7 @@ private struct BusyStatusView: View {
         HStack(spacing: 15) {
             ProgressView()
                 .controlSize(.small)
-                .accessibilityLabel("Working")
+                .accessibilityLabel(String(localized: "Working"))
             VStack(alignment: .leading, spacing: 3) {
                 Text(title)
                     .font(.headline)
@@ -151,8 +151,8 @@ private struct BlockedStatusView: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(blockers.count == 1
-                        ? "One app or service is using this disk"
-                        : "\(blockers.count) apps or services are using this disk")
+                        ? String(localized: "One app or service is using this disk")
+                        : String(localized: "\(blockers.count) apps or services are using this disk"))
                         .font(.headline)
                     Text(blockedGuidance)
                         .font(.subheadline)
@@ -199,8 +199,8 @@ private struct BlockedStatusView: View {
 
     private var blockedGuidance: String {
         hasEligibleRelease
-            ? "Review what Kick can quit before you continue."
-            : "Follow the steps below, then check again."
+            ? String(localized: "Review what Kick can quit before you continue.")
+            : String(localized: "Follow the steps below, then check again.")
     }
 
     private var hasEligibleRelease: Bool {
@@ -240,9 +240,9 @@ private struct SuccessStatusView: View {
                 .font(.system(size: 42))
                 .foregroundStyle(.green)
                 .accessibilityHidden(true)
-            Text("Ejected safely")
+            Text(String(localized: "Ejected safely"))
                 .font(.title3.weight(.semibold))
-            Text("You can unplug “\(name)”.")
+            Text(String(localized: "You can unplug “\(name)”."))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }

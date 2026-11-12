@@ -145,21 +145,21 @@ struct ContentView: View {
         case .ready:
             message = nil
         case .ejecting:
-            message = "Checking the disk."
+            message = String(localized: "Checking the disk.")
         case .diagnosing:
-            message = "Finding what is using the disk."
+            message = String(localized: "Finding what is using the disk.")
         case .blocked:
-            message = "The disk is still in use."
+            message = String(localized: "The disk is still in use.")
         case .releasing:
-            message = "Asking eligible apps to quit."
+            message = String(localized: "Asking eligible apps to quit.")
         case let .stopping(name):
-            message = "Stopping \(name)."
+            message = String(localized: "Stopping \(name).")
         case .retrying:
-            message = "The blockers are gone. Ejecting the disk."
+            message = String(localized: "The blockers are gone. Ejecting the disk.")
         case let .ejected(name):
-            message = "\(name) ejected safely."
+            message = String(localized: "\(name) ejected safely.")
         case let .failed(title, detail, _):
-            message = "\(title). \(detail)"
+            message = String(localized: "\(title). \(detail)")
         }
 
         guard let message, let application = NSApp else { return }

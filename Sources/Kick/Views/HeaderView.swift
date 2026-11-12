@@ -25,7 +25,7 @@ struct HeaderView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text("Kick")
                     .font(.title2.weight(.bold))
-                Text("External disks, explained.")
+                Text(String(localized: "External disks, explained."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -38,8 +38,8 @@ struct HeaderView: View {
             }
             .buttonStyle(.borderless)
             .disabled(!isRefreshEnabled)
-            .help("Refresh disks")
-            .accessibilityLabel("Refresh disks")
+            .help(String(localized: "Refresh disks"))
+            .accessibilityLabel(String(localized: "Refresh disks"))
         }
     }
 }

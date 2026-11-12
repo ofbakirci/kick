@@ -82,7 +82,7 @@ public struct ExternalDisk: Identifiable, Hashable {
 
     public var formatSummary: String {
         let formats = Array(Set(volumes.compactMap(\.formatDescription))).sorted()
-        return formats.isEmpty ? "External disk" : formats.joined(separator: " + ")
+        return formats.isEmpty ? String(localized: "External disk") : formats.joined(separator: " + ")
     }
 
     private func pooledCapacity(_ keyPath: KeyPath<DiskVolume, Int64?>) -> Int64? {

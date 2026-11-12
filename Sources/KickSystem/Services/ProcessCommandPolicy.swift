@@ -51,17 +51,17 @@ enum ProcessCommandPolicy {
     /// What the user should do instead of an automatic quit.
     static func manualGuidance(for command: String) -> String {
         if isVirtualMachine(command) {
-            return "Stop the virtual machine, then try again."
+            return String(localized: "Stop the virtual machine, then try again.")
         }
         if isTransfer(command) {
-            return "Wait for the transfer or backup to finish."
+            return String(localized: "Wait for the transfer or backup to finish.")
         }
         if isShell(command) {
-            return "Change the terminal folder or close its window."
+            return String(localized: "Change the terminal folder or close its window.")
         }
         if isSystemUserInterface(command) {
-            return "Close the file or wait for macOS to finish."
+            return String(localized: "Close the file or wait for macOS to finish.")
         }
-        return "Close this process, then try again."
+        return String(localized: "Close this process, then try again.")
     }
 }

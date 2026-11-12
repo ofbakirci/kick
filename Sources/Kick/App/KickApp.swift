@@ -65,8 +65,8 @@ struct KickApp: App {
         .windowResizability(.contentSize)
         .commands {
             CommandGroup(replacing: .newItem) {}
-            CommandMenu("Disk") {
-                Button("Refresh Disks") {
+            CommandMenu(String(localized: "Disk")) {
+                Button(String(localized: "Refresh Disks")) {
                     Task { await workflow.refresh() }
                 }
                 .keyboardShortcut("r", modifiers: .command)
@@ -86,12 +86,12 @@ struct KickApp: App {
     private var ejectCommandTitle: String {
         switch workflow.phase {
         case .blocked:
-            return "Check Again"
+            return String(localized: "Check Again")
         case let .failed(_, _, recovery):
-            return recovery == .retryEject ? "Try Eject Again" : "Eject Disk"
+            return recovery == .retryEject ? String(localized: "Try Eject Again") : String(localized: "Eject Disk")
         default:
-            guard let name = workflow.selectedDisk?.displayName else { return "Eject Disk" }
-            return "Eject \(name)"
+            guard let name = workflow.selectedDisk?.displayName else { return String(localized: "Eject Disk") }
+            return String(localized: "Eject \(name)")
         }
     }
 

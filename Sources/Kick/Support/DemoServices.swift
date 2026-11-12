@@ -25,7 +25,7 @@ struct DemoEjector: DiskEjecting {
     func eject(_ disk: ExternalDisk) async throws {
         if await scenario.isBlocked() {
             throw EjectionFailure(
-                message: "The disk is in use.",
+                message: String(localized: "The disk is in use."),
                 dissentingProcessID: 90294,
                 kind: .busy
             )
@@ -55,10 +55,10 @@ struct DemoProcessReleaser: ProcessReleasing, ProcessStopping {
             processName: ProcessPresentation.name(for: process),
             method: isProtected ? .terminateProcess : .quitApplication,
             message: isProtected
-                ? "Kick will send one stop request (SIGTERM) to Virtual Machine. Most tools stop cleanly. Kick never forces a kill."
-                : "Kick will ask this app to quit, the same as Quit in its menu. The app can still show a save dialog.",
+                ? String(localized: "Kick will send one stop request (SIGTERM) to Virtual Machine. Most tools stop cleanly. Kick never forces a kill.")
+                : String(localized: "Kick will ask this app to quit, the same as Quit in its menu. The app can still show a save dialog."),
             warning: isProtected
-                ? "A running virtual machine can lose unsaved state. Stop it from its own app if you can."
+                ? String(localized: "A running virtual machine can lose unsaved state. Stop it from its own app if you can.")
                 : nil
         )
     }
@@ -69,7 +69,7 @@ struct DemoProcessReleaser: ProcessReleasing, ProcessStopping {
             processID: process.pid,
             processName: ProcessPresentation.name(for: process),
             disposition: .requested,
-            message: "Kick sent a stop request to \(ProcessPresentation.name(for: process))."
+            message: String(localized: "Kick sent a stop request to \(ProcessPresentation.name(for: process)).")
         )
     }
 
@@ -85,8 +85,8 @@ struct DemoProcessReleaser: ProcessReleasing, ProcessStopping {
                     ? .quitApplication
                     : .manualAction,
                 message: allowsAutomaticQuit && !isProtected
-                    ? "Kick will ask this app to quit."
-                    : "Stop the virtual machine, then try again."
+                    ? String(localized: "Kick will ask this app to quit.")
+                    : String(localized: "Stop the virtual machine, then try again.")
             )
         }
     }
@@ -105,10 +105,10 @@ struct DemoProcessReleaser: ProcessReleasing, ProcessStopping {
                 processName: $0.command,
                 disposition: wasRequested ? .requested : .needsManualAction,
                 message: wasRequested
-                    ? "Kick asked the app to quit."
+                    ? String(localized: "Kick asked the app to quit.")
                     : isProtected
-                    ? "Stop the virtual machine, then try again."
-                    : "Close this process, then try again."
+                    ? String(localized: "Stop the virtual machine, then try again.")
+                    : String(localized: "Close this process, then try again.")
             )
         }
     }
@@ -118,7 +118,7 @@ enum DemoData {
     static let disk = ExternalDisk(
         id: "demo-disk",
         displayName: "345-BACKUP",
-        deviceName: "External SSD",
+        deviceName: String(localized: "External SSD"),
         wholeDiskIdentifier: "disk9",
         volumes: [
             DiskVolume(

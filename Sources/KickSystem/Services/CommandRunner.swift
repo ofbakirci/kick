@@ -28,9 +28,9 @@ public enum CommandRunnerError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .couldNotCreateTemporaryFiles:
-            return "Kick could not prepare a process check."
+            return String(localized: "Kick could not prepare a process check.")
         case .timedOut:
-            return "The process check took too long. Try again."
+            return String(localized: "The process check took too long. Try again.")
         }
     }
 }

@@ -9,11 +9,11 @@ public enum DiagnosisError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .lsofFailed(let message):
-            return message.isEmpty ? "macOS could not inspect the disk." : message
+            return message.isEmpty ? String(localized: "macOS could not inspect the disk.") : message
         case .incompleteOutput(let message):
             return message.isEmpty
-                ? "macOS returned an incomplete process list."
-                : "macOS returned an incomplete process list. \(message)"
+                ? String(localized: "macOS returned an incomplete process list.")
+                : String(localized: "macOS returned an incomplete process list. \(message)")
         }
     }
 }

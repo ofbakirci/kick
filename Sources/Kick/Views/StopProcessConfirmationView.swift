@@ -18,15 +18,15 @@ struct StopProcessConfirmationView: View {
                     .frame(width: 36, height: 36)
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Stop “\(processName)”?")
+                    Text(String(localized: "Stop “\(processName)”?"))
                         .font(.title3.weight(.semibold))
-                    Text("Last resort. Safely Kick does not close this one on its own.")
+                    Text(String(localized: "Last resort. Safely Kick does not close this one on its own."))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
             }
 
-            Text(plan?.message ?? "Kick cannot stop this process.")
+            Text(plan?.message ?? String(localized: "Kick cannot stop this process."))
                 .font(.subheadline)
                 .fixedSize(horizontal: false, vertical: true)
 
@@ -45,25 +45,25 @@ struct StopProcessConfirmationView: View {
             }
 
             if let owner = ProcessPresentation.ownerDescription(for: process) {
-                Text("\(owner). You can also close it there yourself.")
+                Text(String(localized: "\(owner). You can also close it there yourself."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
-            Text("Kick sends one request and waits. If the process ignores it, the disk stays mounted and Kick shows what is still open. Kick never forces a kill.")
+            Text(String(localized: "Kick sends one request and waits. If the process ignores it, the disk stays mounted and Kick shows what is still open. Kick never forces a kill."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
 
             HStack {
-                Button("Cancel", action: onCancel)
+                Button(String(localized: "Cancel"), action: onCancel)
                     .keyboardShortcut(.cancelAction)
                 Spacer()
                 Button(stopButtonTitle, action: onConfirm)
                     .buttonStyle(.borderedProminent)
                     .tint(.red)
                     .disabled(!isAvailable)
-                    .accessibilityHint("Sends one stop request to \(processName), then rechecks the disk.")
+                    .accessibilityHint(String(localized: "Sends one stop request to \(processName), then rechecks the disk."))
             }
         }
         .padding(20)
@@ -80,6 +80,6 @@ struct StopProcessConfirmationView: View {
     }
 
     private var stopButtonTitle: String {
-        plan?.method == .quitApplication ? "Ask to Quit" : "Stop Process"
+        plan?.method == .quitApplication ? String(localized: "Ask to Quit") : String(localized: "Stop Process")
     }
 }

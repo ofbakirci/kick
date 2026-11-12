@@ -18,7 +18,7 @@ public final class FileManagerDiskEjector: DiskEjecting {
 
         guard let mountURL = disk.primaryMountURL else {
             throw EjectionFailure(
-                message: "This disk is no longer mounted.",
+                message: String(localized: "This disk is no longer mounted."),
                 kind: .identityChanged
             )
         }
@@ -97,7 +97,7 @@ public struct SystemDiskIdentityValidator: DiskIdentityValidating {
 
     private func identityFailure() -> EjectionFailure {
         EjectionFailure(
-            message: "The disk identity changed. Refresh the list and try again.",
+            message: String(localized: "The disk identity changed. Refresh the list and try again."),
             kind: .identityChanged
         )
     }
