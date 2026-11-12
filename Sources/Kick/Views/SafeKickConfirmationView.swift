@@ -67,18 +67,18 @@ struct SafeKickConfirmationView: View {
 
             HStack {
                 if hasEligibleRelease {
-                    Button("Cancel", action: onCancel)
+                    Button(String(localized: "Cancel"), action: onCancel)
                         .keyboardShortcut(.cancelAction)
                     Spacer()
                     SafeKickButton(
                         diskName: disk.displayName,
-                        accessibilityHint: "Asks eligible apps to quit, rechecks the disk, then ejects it.",
+                        accessibilityHint: String(localized: "Asks eligible apps to quit, rechecks the disk, then ejects it."),
                         action: onConfirm
                     )
                     .frame(width: 170)
                 } else {
                     Spacer()
-                    Button("Back", action: onCancel)
+                    Button(String(localized: "Back"), action: onCancel)
                         .buttonStyle(.borderedProminent)
                         .tint(.kickProminentAccent)
                         .keyboardShortcut(.defaultAction)
@@ -103,33 +103,33 @@ struct SafeKickConfirmationView: View {
 
     private var confirmationTitle: String {
         hasEligibleRelease
-            ? "Safely eject “\(disk.displayName)”?"
-            : "“\(disk.displayName)” still needs attention"
+            ? String(localized: "Safely eject “\(disk.displayName)”?")
+            : String(localized: "“\(disk.displayName)” still needs attention")
     }
 
     private var confirmationSubtitle: String {
         hasEligibleRelease
-            ? "Save your work before you continue."
-            : "Complete the steps below, then check again."
+            ? String(localized: "Save your work before you continue.")
+            : String(localized: "Complete the steps below, then check again.")
     }
 
     private var confirmationMessage: String {
         guard hasEligibleRelease else {
-            return "Kick cannot close these blockers. The disk stays mounted until every blocker releases it."
+            return String(localized: "Kick cannot close these blockers. The disk stays mounted until every blocker releases it.")
         }
 
         let eligibleDescription = eligiblePlanCount == 1
-            ? "one app"
-            : "\(eligiblePlanCount) apps"
+            ? String(localized: "one app")
+            : String(localized: "\(eligiblePlanCount) apps")
         let manualDescription: String
         if manualBlockerCount == 0 {
             manualDescription = ""
         } else if manualBlockerCount == 1 {
-            manualDescription = " One blocker still needs you."
+            manualDescription = String(localized: " One blocker still needs you.")
         } else {
-            manualDescription = " \(manualBlockerCount) blockers still need you."
+            manualDescription = String(localized: " \(manualBlockerCount) blockers still need you.")
         }
-        return "Kick will ask \(eligibleDescription) to quit.\(manualDescription) It ejects only after the disk is no longer in use. It never force quits."
+        return String(localized: "Kick will ask \(eligibleDescription) to quit.\(manualDescription) It ejects only after the disk is no longer in use. It never force quits.")
     }
 
     private func releasePlan(for process: BlockingProcess) -> ProcessReleasePlan? {
@@ -141,7 +141,7 @@ struct SafeKickConfirmationView: View {
     }
 
     private func planMessage(for process: BlockingProcess) -> String {
-        releasePlan(for: process)?.message ?? "Review this item before you continue."
+        releasePlan(for: process)?.message ?? String(localized: "Review this item before you continue.")
     }
 
     private func planSymbol(for process: BlockingProcess) -> String {

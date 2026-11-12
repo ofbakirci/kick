@@ -17,43 +17,43 @@ struct ActionBar: View {
                 VStack(spacing: 8) {
                     SafeKickButton(
                         diskName: disk?.displayName,
-                        accessibilityHint: "Opens a review before Kick asks eligible apps to quit.",
+                        accessibilityHint: String(localized: "Opens a review before Kick asks eligible apps to quit."),
                         action: onKick
                     )
-                    Button("Check Again", action: onEject)
+                    Button(String(localized: "Check Again"), action: onEject)
                         .buttonStyle(.borderless)
                         .foregroundStyle(.secondary)
-                        .help("Check whether the disk can eject now")
+                        .help(String(localized: "Check whether the disk can eject now"))
                 }
             } else {
                 VStack(spacing: 6) {
-                    primaryButton("Check Again", action: onEject)
+                    primaryButton(String(localized: "Check Again"), action: onEject)
                         .accessibilityLabel(checkAgainAccessibilityLabel)
-                        .accessibilityHint("Checks whether the listed blockers have released the disk.")
-                    Text("Follow the steps above, then check the disk again.")
+                        .accessibilityHint(String(localized: "Checks whether the listed blockers have released the disk."))
+                    Text(String(localized: "Follow the steps above, then check the disk again."))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)
                 }
             }
         case .ejected:
-            primaryButton("Done", action: onReset)
+            primaryButton(String(localized: "Done"), action: onReset)
                 .keyboardShortcut(.defaultAction)
         case .ejecting, .diagnosing, .releasing, .stopping, .retrying:
-            primaryButton("Working…") {}
+            primaryButton(String(localized: "Working…")) {}
                 .disabled(true)
         case .ready:
             if disk != nil {
-                primaryButton("Eject", action: onEject)
+                primaryButton(String(localized: "Eject"), action: onEject)
                     .accessibilityLabel(ejectAccessibilityLabel)
             }
         case let .failed(_, _, recovery):
             if disk != nil && recovery == .retryEject {
-                primaryButton("Try Again", action: onEject)
+                primaryButton(String(localized: "Try Again"), action: onEject)
                     .accessibilityLabel(ejectAccessibilityLabel)
             } else {
-                primaryButton("Refresh Disks", action: onRefresh)
-                    .accessibilityLabel("Refresh external disks")
+                primaryButton(String(localized: "Refresh Disks"), action: onRefresh)
+                    .accessibilityLabel(String(localized: "Refresh external disks"))
             }
         }
     }
@@ -63,11 +63,11 @@ struct ActionBar: View {
     }
 
     private var ejectAccessibilityLabel: String {
-        disk.map { "Eject \($0.displayName)" } ?? "Eject disk"
+        disk.map { String(localized: "Eject \($0.displayName)") } ?? String(localized: "Eject disk")
     }
 
     private var checkAgainAccessibilityLabel: String {
-        disk.map { "Check whether \($0.displayName) can eject" } ?? "Check the disk again"
+        disk.map { String(localized: "Check whether \($0.displayName) can eject") } ?? String(localized: "Check the disk again")
     }
 
     private func primaryButton(
@@ -93,9 +93,9 @@ struct SafeKickButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: -1) {
-                Text("Safely")
+                Text(String(localized: "Safely"))
                     .font(.caption2.weight(.semibold))
-                Text("Kick")
+                Text(String(localized: "safe-eject.button-verb", defaultValue: "Kick"))
                     .font(.title3.weight(.bold))
             }
             .foregroundStyle(Color.kickActionLabel)
@@ -114,7 +114,7 @@ struct SafeKickButton: View {
         .keyboardShortcut(.return, modifiers: [])
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(.isButton)
-        .accessibilityLabel(diskName.map { "Safely eject \($0)" } ?? "Safely eject disk")
+        .accessibilityLabel(diskName.map { String(localized: "Safely eject \($0)") } ?? String(localized: "Safely eject disk"))
         .accessibilityHint(accessibilityHint)
     }
 }

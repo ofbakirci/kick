@@ -43,17 +43,17 @@ public final class GracefulProcessReleaser: ProcessReleasing {
         }
 
         guard let application = NSRunningApplication(processIdentifier: process.pid) else {
-            return manual(process, "This is no longer a normal app. Close it yourself.")
+            return manual(process, String(localized: "This is no longer a normal app. Close it yourself."))
         }
         guard hasSameLiveIdentity(process) else {
-            return manual(process, "Kick could not verify that this is the same app.")
+            return manual(process, String(localized: "Kick could not verify that this is the same app."))
         }
         if application.isTerminated {
             return ReleaseAttempt(
                 processID: process.pid,
                 processName: plan.processName,
                 disposition: .alreadyClosed,
-                message: "The app is already closed."
+                message: String(localized: "The app is already closed.")
             )
         }
         if application.terminate() {
@@ -61,11 +61,11 @@ public final class GracefulProcessReleaser: ProcessReleasing {
                 processID: process.pid,
                 processName: plan.processName,
                 disposition: .requested,
-                message: "Kick asked the app to quit."
+                message: String(localized: "Kick asked the app to quit.")
             )
         }
 
-        return failed(process, "The app did not accept the quit request.")
+        return failed(process, String(localized: "The app did not accept the quit request."))
     }
 
     private func planRelease(_ process: BlockingProcess) -> ProcessReleasePlan {
@@ -79,16 +79,16 @@ public final class GracefulProcessReleaser: ProcessReleasing {
         }
 
         if process.pid <= 1 || process.pid == currentProcessID {
-            return manual("Kick will not close this protected process.")
+            return manual(String(localized: "Kick will not close this protected process."))
         }
         guard process.userID == currentUserID else {
-            return manual("This process belongs to macOS or another user.")
+            return manual(String(localized: "This process belongs to macOS or another user."))
         }
         if process.isSystemDissent || process.openFiles.isEmpty {
-            return manual("Kick cannot verify how this app uses the disk. Close it yourself.")
+            return manual(String(localized: "Kick cannot verify how this app uses the disk. Close it yourself."))
         }
         if process.hasWritableFiles {
-            return manual("It can write to the disk. Finish its work first.")
+            return manual(String(localized: "It can write to the disk. Finish its work first."))
         }
         // Specific guidance for shells, transfers, and virtual machines comes
         // before the generic "cannot verify" message.
@@ -96,30 +96,30 @@ public final class GracefulProcessReleaser: ProcessReleasing {
             return manual(ProcessCommandPolicy.manualGuidance(for: process.command))
         }
         if process.hasUnknownAccess {
-            return manual("Kick cannot verify how this process uses the disk.")
+            return manual(String(localized: "Kick cannot verify how this process uses the disk."))
         }
         guard process.startTime != nil, process.executablePath != nil else {
-            return manual("Kick cannot verify this app's process identity.")
+            return manual(String(localized: "Kick cannot verify this app's process identity."))
         }
         guard let application = NSRunningApplication(processIdentifier: process.pid) else {
             return manual(
                 process.holdsCurrentFolder
-                    ? "Its current folder is on this disk. Close this command or helper, then try again."
-                    : "Close this command or helper, then try again."
+                    ? String(localized: "Its current folder is on this disk. Close this command or helper, then try again.")
+                    : String(localized: "Close this command or helper, then try again.")
             )
         }
         guard application.activationPolicy != .prohibited else {
-            return manual("This background service must finish on its own.")
+            return manual(String(localized: "This background service must finish on its own."))
         }
         guard application.bundleIdentifier != Bundle.main.bundleIdentifier else {
-            return manual("Kick will not close itself.")
+            return manual(String(localized: "Kick will not close itself."))
         }
 
         return ProcessReleasePlan(
             processID: process.pid,
             processName: application.localizedName ?? process.command,
             strategy: .quitApplication,
-            message: "Kick will ask this app to quit."
+            message: String(localized: "Kick will ask this app to quit.")
         )
     }
 

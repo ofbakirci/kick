@@ -40,7 +40,7 @@ public extension ProcessReleasing {
                 processID: $0.pid,
                 processName: $0.command,
                 strategy: .manualAction,
-                message: "Close this process, then try again."
+                message: String(localized: "Close this process, then try again.")
             )
         }
     }

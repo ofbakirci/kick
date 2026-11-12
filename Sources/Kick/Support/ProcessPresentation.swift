@@ -4,7 +4,7 @@ import KickCore
 enum ProcessPresentation {
     static func name(for process: BlockingProcess) -> String {
         if process.command.localizedCaseInsensitiveContains("Virtualization.VirtualMachine") {
-            return "Virtual Machine"
+            return String(localized: "Virtual Machine")
         }
         if ["mds", "mdworker", "mds_stores"].contains(process.command.lowercased()) {
             return "Spotlight"
@@ -34,39 +34,39 @@ enum ProcessPresentation {
     static func activity(for process: BlockingProcess) -> String {
         let executable = process.command.lowercased()
         if process.isSystemDissent || process.openFiles.isEmpty {
-            return "macOS named this process as the eject blocker."
+            return String(localized: "macOS named this process as the eject blocker.")
         }
         if process.hasWritableFiles {
-            return "It has an item open for writing."
+            return String(localized: "It has an item open for writing.")
         }
         if executable.contains("virtualization.virtualmachine") {
-            return "A virtual machine has files open on this disk."
+            return String(localized: "A virtual machine has files open on this disk.")
         }
         if ["mds", "mdworker", "mds_stores"].contains(executable) {
-            return "Spotlight has files open on this disk."
+            return String(localized: "Spotlight has files open on this disk.")
         }
         if process.holdsCurrentFolder {
             let otherCount = process.openFiles.filter { !$0.isDirectoryReference }.count
             if otherCount == 0 {
-                return "Its current folder is on this disk."
+                return String(localized: "Its current folder is on this disk.")
             }
             return otherCount == 1
-                ? "Its current folder is on this disk, and it has one item open."
-                : "Its current folder is on this disk, and it has \(otherCount) items open."
+                ? String(localized: "Its current folder is on this disk, and it has one item open.")
+                : String(localized: "Its current folder is on this disk, and it has \(otherCount) items open.")
         }
         if process.hasUnknownAccess {
-            return "Its access to this disk is not clear."
+            return String(localized: "Its access to this disk is not clear.")
         }
         let count = process.openFiles.count
         return count == 1
-            ? "It has one item open on this disk."
-            : "It has \(count) items open on this disk."
+            ? String(localized: "It has one item open on this disk.")
+            : String(localized: "It has \(count) items open on this disk.")
     }
 
     /// "Started from Terminal" for a shell or helper that a GUI app owns.
     static func ownerDescription(for process: BlockingProcess) -> String? {
         guard let parent = process.parentApplication, parent.pid != process.pid else { return nil }
-        return "Started from \(parent.name)"
+        return String(localized: "Started from \(parent.name)")
     }
 
     /// The app Kick can bring to the front so the user can close the window,
@@ -87,9 +87,9 @@ enum ProcessPresentation {
 
     static func label(for file: OpenFileReference) -> String {
         switch file.descriptor {
-        case "cwd": return "Current folder: \(file.path)"
-        case "rtd": return "Root folder: \(file.path)"
-        case "txt": return "Running from: \(file.path)"
+        case "cwd": return String(localized: "Current folder: \(file.path)")
+        case "rtd": return String(localized: "Root folder: \(file.path)")
+        case "txt": return String(localized: "Running from: \(file.path)")
         default: return file.path
         }
     }

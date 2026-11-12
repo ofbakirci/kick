@@ -19,6 +19,7 @@ APP_BUNDLE="$2"
 APP_CONTENTS="$APP_BUNDLE/Contents"
 APP_MACOS="$APP_CONTENTS/MacOS"
 APP_RESOURCES="$APP_CONTENTS/Resources"
+APP_ZH_HANS="$APP_RESOURCES/zh-Hans.lproj"
 APP_BINARY="$APP_MACOS/$APP_NAME"
 INFO_PLIST="$APP_CONTENTS/Info.plist"
 ICON_FILE="$ROOT_DIR/Resources/Kick.icns"
@@ -62,9 +63,11 @@ if [[ ! -f "$ICON_FILE" ]]; then
 fi
 
 rm -rf "$APP_BUNDLE"
-mkdir -p "$APP_MACOS" "$APP_RESOURCES"
+mkdir -p "$APP_MACOS" "$APP_ZH_HANS"
 cp "$BUILD_BINARY" "$APP_BINARY"
 cp "$ICON_FILE" "$APP_RESOURCES/Kick.icns"
+cp "$ROOT_DIR/Resources/zh-Hans.lproj/Localizable.strings" "$APP_ZH_HANS/Localizable.strings"
+cp "$ROOT_DIR/LICENSE" "$APP_RESOURCES/LICENSE"
 chmod +x "$APP_BINARY"
 
 cat >"$INFO_PLIST" <<PLIST

@@ -11,7 +11,7 @@ struct DiskSelectorView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 9) {
             HStack {
-                Text("External Disks")
+                Text(String(localized: "External Disks"))
                     .font(.headline)
                 Spacer()
                 Text("\(disks.count)")
@@ -51,7 +51,7 @@ struct DiskSelectorView: View {
     }
 
     private var diskCountAccessibilityLabel: String {
-        disks.count == 1 ? "One connected external disk" : "\(disks.count) connected external disks"
+        disks.count == 1 ? String(localized: "One connected external disk") : String(localized: "\(disks.count) connected external disks")
     }
 }
 
@@ -110,7 +110,7 @@ private struct DiskCard: View {
         .animation(.easeOut(duration: 0.12), value: isHovered)
         .help(disk.displayName)
         .accessibilityLabel("\(disk.displayName), \(detailText)")
-        .accessibilityHint(isSelected ? "Selected disk" : "Select this disk")
+        .accessibilityHint(isSelected ? String(localized: "Selected disk") : String(localized: "Select this disk"))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 

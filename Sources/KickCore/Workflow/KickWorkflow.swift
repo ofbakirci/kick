@@ -98,7 +98,7 @@ public final class KickWorkflow: ObservableObject {
             stopPlans = []
             releaseAttempts = []
             phase = .failed(
-                title: "Could not check disks",
+                title: String(localized: "Could not check disks"),
                 message: readableMessage(for: error),
                 recovery: .refreshDisks
             )
@@ -149,7 +149,7 @@ public final class KickWorkflow: ObservableObject {
                     removeStaleDisk(disk)
                 }
                 phase = .failed(
-                    title: "Could not eject",
+                    title: String(localized: "Could not eject"),
                     message: ejectMessage,
                     recovery: (error as? EjectionFailure)?.kind == .identityChanged
                         ? .refreshDisks
@@ -170,7 +170,7 @@ public final class KickWorkflow: ObservableObject {
 
                 if found.isEmpty {
                     activeOperationID = nil
-                    phase = .failed(title: "Could not eject", message: ejectMessage)
+                    phase = .failed(title: String(localized: "Could not eject"), message: ejectMessage)
                 } else {
                     enterBlockedState(with: found)
                 }
@@ -182,7 +182,7 @@ public final class KickWorkflow: ObservableObject {
                     "Diagnosis failed domain=\(nsError.domain, privacy: .public) code=\(nsError.code, privacy: .public)"
                 )
                 phase = .failed(
-                    title: "Could not inspect this disk",
+                    title: String(localized: "Could not inspect this disk"),
                     message: "\(ejectMessage) \(readableMessage(for: error))"
                 )
             }
@@ -217,7 +217,7 @@ public final class KickWorkflow: ObservableObject {
                             processID: approval.process.pid,
                             processName: approval.process.command,
                             disposition: .alreadyClosed,
-                            message: "It released the disk before Kick acted."
+                            message: String(localized: "It released the disk before Kick acted.")
                         )
                     )
                     continue
@@ -243,7 +243,7 @@ public final class KickWorkflow: ObservableObject {
                             processName: currentPlan?.processName ?? fresh.command,
                             disposition: .needsManualAction,
                             message: currentPlan?.message
-                                ?? "Kick cannot verify that this app is still safe to close."
+                                ?? String(localized: "Kick cannot verify that this app is still safe to close.")
                         )
                     )
                     continue
@@ -304,7 +304,7 @@ public final class KickWorkflow: ObservableObject {
                     processID: target.pid,
                     processName: plan.processName,
                     disposition: .alreadyClosed,
-                    message: "It released the disk before Kick acted."
+                    message: String(localized: "It released the disk before Kick acted.")
                 )
             }
             guard isCurrent(operationID, diskID: disk.id) else { return }
@@ -394,7 +394,7 @@ public final class KickWorkflow: ObservableObject {
             "Release operation failed domain=\(nsError.domain, privacy: .public) code=\(nsError.code, privacy: .public)"
         )
         phase = .failed(
-            title: "Kick stopped safely",
+            title: String(localized: "Kick stopped safely"),
             message: readableMessage(for: error)
         )
     }
@@ -491,7 +491,7 @@ public final class KickWorkflow: ObservableObject {
 
     private func readableMessage(for error: Error) -> String {
         let message = error.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
-        return message.isEmpty ? "macOS did not provide a reason." : message
+        return message.isEmpty ? String(localized: "macOS did not provide a reason.") : message
     }
 
     private func logEjectionFailure(_ error: Error) {

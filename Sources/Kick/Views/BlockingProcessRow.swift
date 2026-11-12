@@ -46,20 +46,20 @@ struct BlockingProcessRow: View {
                     if showableApplicationName != nil || canStop {
                         HStack(spacing: 14) {
                             if let showableApplicationName {
-                                Button("Show \(showableApplicationName)", action: onShow)
+                                Button(String(localized: "Show \(showableApplicationName)"), action: onShow)
                                     .buttonStyle(.link)
                                     .font(.caption.weight(.medium))
-                                    .help("Bring \(showableApplicationName) to the front so you can close the window or change its folder")
-                                    .accessibilityHint("Brings the app to the front. Kick does not close it.")
+                                    .help(String(localized: "Bring \(showableApplicationName) to the front so you can close the window or change its folder"))
+                                    .accessibilityHint(String(localized: "Brings the app to the front. Kick does not close it."))
                             }
                             if canStop {
-                                Button("Stop…", action: onStop)
+                                Button(String(localized: "Stop…"), action: onStop)
                                     .buttonStyle(.link)
                                     .font(.caption.weight(.medium))
                                     .foregroundStyle(.red)
-                                    .help("Last resort: Kick asks for a review, then sends one stop request. It never forces a kill.")
-                                    .accessibilityLabel("Stop \(ProcessPresentation.name(for: process))")
-                                    .accessibilityHint("Opens a review before Kick sends one stop request to this process.")
+                                    .help(String(localized: "Last resort: Kick asks for a review, then sends one stop request. It never forces a kill."))
+                                    .accessibilityLabel(String(localized: "Stop \(ProcessPresentation.name(for: process))"))
+                                    .accessibilityHint(String(localized: "Opens a review before Kick sends one stop request to this process."))
                             }
                         }
                         .padding(.top, 2)
@@ -77,13 +77,13 @@ struct BlockingProcessRow: View {
                         .frame(width: 22, height: 22)
                 }
                 .buttonStyle(.borderless)
-                .help(isExpanded ? "Hide details" : "Show details")
+                .help(isExpanded ? String(localized: "Hide details") : String(localized: "Show details"))
                 .accessibilityLabel(
                     isExpanded
-                        ? "Hide details for \(ProcessPresentation.name(for: process))"
-                        : "Show details for \(ProcessPresentation.name(for: process))"
+                        ? String(localized: "Hide details for \(ProcessPresentation.name(for: process))")
+                        : String(localized: "Show details for \(ProcessPresentation.name(for: process))")
                 )
-                .accessibilityValue(isExpanded ? "Expanded" : "Collapsed")
+                .accessibilityValue(isExpanded ? String(localized: "Expanded") : String(localized: "Collapsed"))
             }
 
             if isExpanded {
@@ -101,12 +101,12 @@ struct BlockingProcessRow: View {
                             .help(file.path)
                     }
                     if process.openFiles.isEmpty {
-                        Text("No open paths were reported.")
+                        Text(String(localized: "No open paths were reported."))
                             .font(.caption2)
                             .foregroundStyle(.tertiary)
                     }
                     if process.openFiles.count > 6 {
-                        Text("\(process.openFiles.count - 6) more items")
+                        Text(String(localized: "\(process.openFiles.count - 6) more items"))
                             .font(.caption2)
                             .foregroundStyle(.tertiary)
                     }
